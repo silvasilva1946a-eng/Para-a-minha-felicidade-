@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pra minha felicidade</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      font-family: 'Quicksand', sans-serif;
+      text-align: center;
+      overflow: hidden;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #fff;
+      font-size: 1.8em;
+      margin-bottom: 20px;
+      font-family: 'Pacifico', cursive;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .buttons {
+      margin-top: 20px;
+      position: relative;
+    }
+
+    button {
+      padding: 12px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      margin: 10px;
+      transition: transform 0.2s;
+    }
+
+    .yes {
+      background-color: #ff4d88;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
+
+    .yes:hover {
+      transform: scale(1.1);
+    }
+
+    .no {
+      background-color: #ff9ec7;
+      color: white;
+      font-weight: bold;
+      position: relative;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
+
+    #message {
+      display: none;
+      margin-top: 30px;
+      font-size: 20px;
+      color: #fff;
+      font-weight: bold;
+      line-height: 1.6;
+    }
+
+    .heart {
+      display: none;
+      font-size: 80px;
+      animation: pulse 1s infinite;
+      color: red;
+      margin-top: 20px;
+    }
+
+    img {
+      display: none;
+      margin-top: 20px;
+      max-width: 90%;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.4); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <h1 id="question">Você acredita que eu vou ser diferente?</h1>
+  <div class="buttons">
+    <button class="yes" onclick="nextStep(true)">Sim 💖</button>
+    <button class="no" onclick="nextStep(false)">Não 😢</button>
+  </div>
+
+  <div id="message">
+    <p>
+      Meu amor, obrigado por dizer sim e quero ressaltar que você não vai se arrepender de ter tomado essa decisão, 
+      por você eu até dou a vida, eu te amo muito e quero ser seu e quero que você seja minha e assim sejamos sempre nós dois 💕
+    </p>
+    <div class="heart">💖</div>
+    <img id="finalPhoto" src="nosdois.jpg" alt="Nós dois">
+  </div>
+
+  <script>
+    const question = document.getElementById("question");
+    const buttons = document.querySelector(".buttons");
+    const btnYes = document.querySelector(".yes");
+    const btnNo = document.querySelector(".no");
+    const message = document.getElementById("message");
+    const heart = document.querySelector(".heart");
+    const finalPhoto = document.getElementById("finalPhoto");
+
+    let step = 1;
+
+    function nextStep(answer) {
+      if (step === 1) {
+        if (!answer) {
+          question.innerText = "Se você não me der uma chance, como posso mostrar se vou mudar?";
+          return;
+        }
+        question.innerText = "Você gostaria de ser minha companheira? Minha mulher novamente, tendo um novo rosto pro nosso relacionamento?";
+        step = 2;
+      } 
+      else if (step === 2) {
+        if (!answer) {
+          question.innerText = "Vamo lá, tenta de novo amor, não é difícil apertar nesse botão 💕";
+          return;
+        }
+        question.innerText = "Quer recomeçar comigo? 💕";
+        step = 3;
+        btnNo.setAttribute("onmouseover", "moveButton()");
+      } 
+      else if (step === 3) {
+        if (answer) {
+          buttons.style.display = "none";
+          message.style.display = "block";
+          heart.style.display = "block";
+          finalPhoto.style.display = "block";
+        }
+      }
+    }
+
+    function moveButton() {
+      const maxX = window.innerWidth - btnNo.offsetWidth - 20;
+      const maxY = window.innerHeight - btnNo.offsetHeight - 20;
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+      btnNo.style.position = "absolute";
+      btnNo.style.left = `${x}px`;
+      btnNo.style.top = `${y}px`;
+    }
+  </script>
+</body>
+</html>
